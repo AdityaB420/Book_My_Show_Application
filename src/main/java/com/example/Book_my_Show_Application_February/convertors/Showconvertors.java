@@ -2,6 +2,7 @@ package com.example.Book_my_Show_Application_February.convertors;
 
 import com.example.Book_my_Show_Application_February.Entities.ShowEntity;
 import com.example.Book_my_Show_Application_February.EntryDtos.ShowEntryDto;
+import com.example.Book_my_Show_Application_February.EntryDtos.ShowTimingDto;
 
 public class Showconvertors {
 
@@ -16,4 +17,5 @@ public class Showconvertors {
 
         return showEntity;
     }
+
 }

@@ -2,6 +2,7 @@ package com.example.Book_my_Show_Application_February.Services;
 
 import com.example.Book_my_Show_Application_February.Entities.*;
 import com.example.Book_my_Show_Application_February.EntryDtos.ShowEntryDto;
+import com.example.Book_my_Show_Application_February.EntryDtos.ShowTimingDto;
 import com.example.Book_my_Show_Application_February.Enums.SeatType;
 import com.example.Book_my_Show_Application_February.Repository.MovieRepository;
 import com.example.Book_my_Show_Application_February.Repository.TheaterRepository;
@@ -21,6 +22,7 @@ public class ShowService {
     @Autowired
     TheaterRepository theaterRepository;
 
+
     public String addShow(ShowEntryDto showEntryDto)
     {
         //1. Create a showEntity
@@ -33,7 +35,7 @@ public class ShowService {
         TheaterEntity theaterEntity = theaterRepository.findById(theaterId).get();
 
 
-        //Setting the attribute of foreignKe
+        //Setting the attribute of foreignKey
         showEntity.setMovieEntity(movieEntity);
         showEntity.setTheaterEntity(theaterEntity);
 
@@ -97,5 +99,19 @@ public class ShowService {
 
         return  seatEntityList;
 
+    }
+    public List<ShowEntity> getShowTime(ShowTimingDto showTimingDto){
+        int theaterId= showTimingDto.getTheaterId();
+        int movieID=showTimingDto.getMovieId();
+        List<ShowEntity> list=new ArrayList<>();
+        TheaterEntity theaterEntity=theaterRepository.findById(theaterId).get();
+        MovieEntity movieEntity=movieRepository.findById(movieID).get();
+        List<ShowEntity> showEntityList=theaterEntity.getShowEntityList();
+        for(ShowEntity show:showEntityList){
+            if(show.getMovieEntity().equals(movieEntity)){
+                list.add(show);
+            }
+        }
+        return list;
     }
 }
